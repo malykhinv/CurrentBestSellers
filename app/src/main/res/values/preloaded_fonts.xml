@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/</item>
-        <item>@font/basic</item>
-        <item>@font/montserrat</item>
-        <item>@font/spinnaker</item>
+        <item>@font/poppins_family</item>
     </array>
 </resources>
