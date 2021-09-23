@@ -19,6 +19,9 @@ data class BookDetails (
     @SerializedName("contributor_note")
     var contributorNote: String,
 
+    @SerializedName("book_image")
+    var coverUrl: String,
+
     @SerializedName("price")
     var price: Int,
 
