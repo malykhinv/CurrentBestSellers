@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class MainViewModel constructor(private val repository: MainRepository) : ViewModel() {
 
-    var listOfBooks = MutableLiveData<ApiResponse>()
+    var books = MutableLiveData<ApiResponse>()
     var errorMessage = MutableLiveData<String>()
 
     fun getBooks() {
@@ -21,7 +21,7 @@ class MainViewModel constructor(private val repository: MainRepository) : ViewMo
                 call: Call<ApiResponse>,
                 response: Response<ApiResponse>
             ) {
-                listOfBooks.postValue(response.body())
+                books.postValue(response.body())
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
