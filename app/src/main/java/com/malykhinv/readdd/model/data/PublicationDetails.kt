@@ -4,44 +4,37 @@ import com.google.gson.annotations.SerializedName
 
 data class PublicationDetails (
 
-    @SerializedName("list_name")
-    var listName: String,
+    @SerializedName("bestsellers_date")
+    val bestsellersDate: String,
+
+    val books: List<BookDetails>,
+
+    val corrections: List<Any>,
 
     @SerializedName("display_name")
-    var displayName: String,
+    val displayName: String,
 
-    @SerializedName("bestsellers_date")
-    var bestsellersDate: String,
+    @SerializedName("list_name")
+    val listName: String,
+
+    @SerializedName("list_name_encoded")
+    val listNameEncoded: String,
+
+    @SerializedName("next_published_date")
+    val nextPublishedDate: String,
+
+    @SerializedName("normal_list_ends_at")
+    val normalListEndsAt: Int,
+
+    @SerializedName("previous_published_date")
+    val previousPublishedDate: String,
 
     @SerializedName("published_date")
-    var publishedDate: String,
+    val publishedDate: String,
 
-    @SerializedName("rank")
-    var rank: Int,
+    @SerializedName("published_date_description")
+    val publishedDateDescription: String,
 
-    @SerializedName("rank_last_week")
-    var rankLastWeek: Int,
-
-    @SerializedName("weeks_on_list")
-    var weeksOnList: Int,
-
-    @SerializedName("asterisk")
-    var asterisk: Int,
-
-    @SerializedName("dagger")
-    var dagger: Int,
-
-    @SerializedName("amazon_product_url")
-    var amazonProductUrl: String,
-
-    @SerializedName("isbns")
-    var isbns: Isbns,
-
-    @SerializedName("book_details")
-    var bookDetails: BookDetails,
-
-    @SerializedName("reviews")
-    var reviews: Review
-
+    val updated: String
 )
 

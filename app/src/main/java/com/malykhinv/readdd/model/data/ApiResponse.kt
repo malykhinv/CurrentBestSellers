@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class ApiResponse (
 
-    @SerializedName("status")
-    var status: String,
+    val copyright: String,
 
-    @SerializedName("copyright")
-    var copyright: String,
+    @SerializedName("last_modified")
+    val lastModified: String,
 
     @SerializedName("num_results")
-    var numberOfResults: String,
+    val numResults: Int,
 
-    @SerializedName("results")
-    var books: PublicationDetails
+    val results: PublicationDetails,
+
+    val status: String
 )
