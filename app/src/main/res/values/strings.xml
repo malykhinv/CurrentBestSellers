@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Readdd</string>
+    <string name="app_name">CurrentBestSellers</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_loading_books">Error while loading books</string>

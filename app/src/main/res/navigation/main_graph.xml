@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/fragment_book_flow"
-        android:name="com.malykhinv.readdd.view.fragments.BookFlowFragment"
+        android:name="com.malykhinv.currentbestsellers.view.fragments.BookCardsFragment"
         android:label="BookFlowFragment"
-        tools:layout="@layout/fragment_book_flow">
+        tools:layout="@layout/fragment_book_cards">
         <action
             android:id="@+id/action_go_to_shelf"
             app:destination="@+id/fragment_book_shelf"/>
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragment_book_shelf"
-        android:name="com.malykhinv.readdd.view.fragments.BookShelfFragment"
+        android:name="com.malykhinv.currentbestsellers.view.fragments.BookShelfFragment"
         android:label="BookShelfFragment"
         tools:layout="@layout/fragment_book_shelf">
         <action

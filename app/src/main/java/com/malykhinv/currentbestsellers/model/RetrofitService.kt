@@ -1,6 +1,6 @@
-package com.malykhinv.readdd.model
+package com.malykhinv.currentbestsellers.model
 
-import com.malykhinv.readdd.model.data.ApiResponse
+import com.malykhinv.currentbestsellers.model.data.ApiResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

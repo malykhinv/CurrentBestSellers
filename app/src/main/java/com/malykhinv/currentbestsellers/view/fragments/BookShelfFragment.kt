@@ -1,12 +1,12 @@
-package com.malykhinv.readdd.view.fragments
+package com.malykhinv.currentbestsellers.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.malykhinv.readdd.R
-import com.malykhinv.readdd.databinding.FragmentBookShelfBinding
+import com.malykhinv.currentbestsellers.R
+import com.malykhinv.currentbestsellers.databinding.FragmentBookShelfBinding
 
 class BookShelfFragment : Fragment() {
 

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.34629629629629627" />
+        <entry key="app/src/main/res/drawable/bg_book_description.xml" value="0.3435897435897436" />
         <entry key="app/src/main/res/drawable/bg_card.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/bg_clickable_rounded.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.34629629629629627" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/font/montserrat.xml" value="0.34074074074074073" />
         <entry key="app/src/main/res/font/poppins_family.xml" value="0.34074074074074073" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_book_cards.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_book_flow.xml" value="0.3641025641025641" />
         <entry key="app/src/main/res/layout/fragment_book_shelf.xml" value="0.3641025641025641" />
         <entry key="app/src/main/res/layout/fragment_core.xml" value="0.3641025641025641" />

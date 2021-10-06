@@ -1,4 +1,4 @@
-package com.malykhinv.readdd
+package com.malykhinv.currentbestsellers
 
 import org.junit.Test
 

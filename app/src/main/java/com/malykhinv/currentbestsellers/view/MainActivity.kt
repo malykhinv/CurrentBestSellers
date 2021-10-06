@@ -1,16 +1,16 @@
-package com.malykhinv.readdd.view
+package com.malykhinv.currentbestsellers.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
-import com.malykhinv.readdd.R
-import com.malykhinv.readdd.databinding.FragmentBookFlowBinding
-import com.malykhinv.readdd.view.fragments.BookFlowFragment
-import com.malykhinv.readdd.view.fragments.BookShelfFragment
+import com.malykhinv.currentbestsellers.R
+import com.malykhinv.currentbestsellers.view.fragments.BookCardsFragment
+import com.malykhinv.currentbestsellers.view.fragments.BookShelfFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private val bookFlowFragment: BookFlowFragment = BookFlowFragment.newInstance()
+    private val bookCardsFragment: BookCardsFragment = BookCardsFragment.newInstance()
     private val bookShelfFragment: BookShelfFragment = BookShelfFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {

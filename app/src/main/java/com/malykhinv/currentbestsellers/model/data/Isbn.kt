@@ -1,4 +1,4 @@
-package com.malykhinv.readdd.model.data
+package com.malykhinv.currentbestsellers.model.data
 
 data class Isbn (
 

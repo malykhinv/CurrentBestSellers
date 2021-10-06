@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="book"
+            type="com.malykhinv.currentbestsellers.model.data.BookDetails" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_core"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragments.BookCardsFragment">
+
+        <ImageView
+            android:id="@+id/iv_saved_books"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_book"
+            android:background="@drawable/bg_clickable_rounded"
+            app:tint="@color/color_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:fontFamily="@font/poppins_family"
+            android:gravity="end|top"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintEnd_toStartOf="@+id/iv_saved_books"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.yuyakaido.android.cardstackview.CardStackView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shelf_height"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_saved_books" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_book_description"
+            app:layout_constraintTop_toBottomOf="@+id/card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/padding_big">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_book_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/poppins_family"
+                    android:gravity="start|bottom"
+                    android:paddingStart="@dimen/padding"
+                    android:paddingEnd="@dimen/padding"
+                    android:text="@{book.title}"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:maxLines="1" />
+
+                <TextView
+                    android:id="@+id/tv_book_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:fontFamily="@font/poppins_family"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="@dimen/padding"
+                    android:paddingEnd="@dimen/padding"
+                    android:paddingBottom="@dimen/padding"
+                    android:text="@{book.author}"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="normal"
+                    android:textAllCaps="false"
+                    android:maxLines="1" />
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

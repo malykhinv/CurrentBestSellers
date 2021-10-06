@@ -1,54 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/iv_saved_books">
+    android:layout_height="@dimen/shelf_height"
+    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/padding">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_book_cover"
-            android:layout_width="match_parent"
-            android:layout_height="460dp"
-            android:layout_gravity="top"
-            android:scaleType="centerCrop"
-            android:src="@color/color_0bc78f"
-            app:riv_corner_radius_top_left="@dimen/radius"
-            app:riv_corner_radius_top_right="@dimen/radius"/>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/iv_book_cover_shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:shimmer_auto_start="true"
+            app:shimmer_base_color="@color/white"
+            android:layout_gravity="center_vertical|start"
+            >
 
-        <TextView
-            android:id="@+id/tv_book_title"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:fontFamily="@font/poppins_family"
-            android:gravity="start|bottom"
-            android:paddingStart="@dimen/padding"
-            android:paddingEnd="@dimen/padding"
-            android:text="Misery"
-            android:textColor="@color/color_black"
-            android:textSize="@dimen/text"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:maxLines="1"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/card_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="@dimen/radius"
+                    >
 
-        <TextView
-            android:id="@+id/tv_book_author"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:fontFamily="@font/poppins_family"
-            android:gravity="start|center_vertical"
-            android:paddingStart="@dimen/padding"
-            android:paddingEnd="@dimen/padding"
-            android:paddingBottom="@dimen/padding"
-            android:text="Stephen King"
-            android:textColor="@color/color_black"
-            android:textSize="@dimen/text_small"
-            android:textStyle="normal"
-            android:textAllCaps="false"
-            android:maxLines="1"/>
+                        <ImageView
+                            android:id="@+id/iv_book_cover"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            />
 
-</LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+</FrameLayout>
