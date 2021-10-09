@@ -1,16 +1,23 @@
 package com.malykhinv.currentbestsellers.view.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.malykhinv.currentbestsellers.R
 import com.malykhinv.currentbestsellers.databinding.FragmentBookCardsBinding
 import com.malykhinv.currentbestsellers.model.MainRepository
@@ -19,6 +26,7 @@ import com.malykhinv.currentbestsellers.view.adapters.CardStackAdapter
 import com.malykhinv.currentbestsellers.viewmodel.MainViewModel
 import com.malykhinv.currentbestsellers.viewmodel.MainViewModelFactory
 import com.yuyakaido.android.cardstackview.*
+import jp.wasabeef.blurry.Blurry
 
 
 class BookCardsFragment : Fragment(), CardStackListener {
@@ -34,6 +42,10 @@ class BookCardsFragment : Fragment(), CardStackListener {
         fun newInstance(): BookCardsFragment {
             return BookCardsFragment()
         }
+
+        private const val ANIMATION_DURATION: Long = 300
+        private const val BLUR_LEVEL: Int = 50
+        private const val SAMPLING_LEVEL: Int = 8
     }
 
 
@@ -83,10 +95,10 @@ class BookCardsFragment : Fragment(), CardStackListener {
 
     override fun onCardAppeared(view: View?, position: Int) {
         viewModel.onCardAppeared(position)
-        setBackgroundImage(viewModel.getCovers().value?.get(position))
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
+        setBackgroundImage(viewModel.getCovers().value?.get(position+1))
     }
 
     private fun assignViewModel() {
@@ -97,7 +109,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
     // Internal
 
     private fun initializeCards() {
-        manager.setStackFrom(StackFrom.Right)
+        manager.setStackFrom(StackFrom.Top)
         manager.setVisibleCount(3)
         manager.setTranslationInterval(8.0f)
         manager.setScaleInterval(0.95f)
@@ -190,7 +202,16 @@ class BookCardsFragment : Fragment(), CardStackListener {
     }
 
     private fun setBackgroundImage(drawable: Drawable?) {
-        binding.layoutCore.background = drawable
+
+        binding.layoutBackground.background = drawable
+
+        Blurry.delete(binding.layoutBackground)
+
+        Blurry.with(context)
+            .radius(Companion.BLUR_LEVEL)
+            .sampling(Companion.SAMPLING_LEVEL)
+            .onto(binding.layoutBackground)
+        YoYo.with(Techniques.FadeIn).duration(Companion.ANIMATION_DURATION).playOn(binding.layoutBackground)
     }
 
 }

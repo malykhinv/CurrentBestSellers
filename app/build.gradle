@@ -64,6 +64,7 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation 'jp.wasabeef:blurry:4.0.0'
+    implementation 'pl.hypeapp:noiseview:1.0'
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
 

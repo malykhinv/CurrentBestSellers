@@ -20,6 +20,7 @@
     <dimen name="padding_big">64dp</dimen>
 
     <dimen name="radius_small">8dp</dimen>
-    <dimen name="radius">24dp</dimen>
+    <dimen name="radius">8dp</dimen>
     <dimen name="radius_big">1200dp</dimen>
+    <dimen name="radius_negative">-48dp</dimen>
 </resources>
