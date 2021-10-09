@@ -93,7 +93,4 @@ class MainViewModel(private val repository: MainRepository, private val app: App
     fun onCardAppeared(position: Int) {
         currentBook.postValue(apiResponse.value?.results?.books?.get(position))
     }
-
-
-
 }
