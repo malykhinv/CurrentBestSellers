@@ -11,10 +11,15 @@
     <!--APPLICATION COLORS-->
     <color name="color_ff9f1c">#ff9f1c</color>
     <color name="color_ffbf69">#ffbf69</color>
-    <color name="color_0bc78f">#0bc78f</color>
+    <color name="color_388e3c">#388e3c</color>
+    <color name="color_f1e3c5">#f1e3c5</color>
     <color name="color_5887fe">#5887fe</color>
     <color name="color_f2f3f8">#f2f3f8</color>
     <color name="color_black">#000000</color>
     <color name="color_white">#FFFFFF</color>
+    <color name="color_grey">#999999</color>
+
     <color name="transparent">#00000000</color>
+    <color name="color_282a41">#282a41</color>
+    <color name="color_a6aab3">#a6aab3</color>
 </resources>

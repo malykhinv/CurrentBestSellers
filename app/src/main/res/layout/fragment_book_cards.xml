@@ -7,6 +7,9 @@
         <variable
             name="book"
             type="com.malykhinv.currentbestsellers.model.data.BookDetails" />
+        <variable
+            name="publication"
+            type="com.malykhinv.currentbestsellers.model.data.PublicationDetails" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,111 +24,224 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <View
+        <TextView
+            android:id="@+id/tv_category"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:alpha="0.25"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/radius_negative"
-            android:background="@drawable/gradient_radial_white_to_transparent"
-            app:layout_constraintBottom_toTopOf="@+id/scroll_view"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="start"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/padding"
+            android:paddingTop="@dimen/padding"
+            android:text="@{publication.listName}"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_small"
+            android:paddingVertical="@dimen/padding_small"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category">
+
+            <FrameLayout
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size_small">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_badge" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/padding_xsmall"
+                    android:text="@{Integer.toString(book.weeksOnList)}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_small" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_small"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:lines="3"
+                android:text="@string/weeks_on_list"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bookshelf_bottom_height"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/layout_book_description" />
+
+        <TextView
+            android:id="@+id/tv_book_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:alpha="0.25"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="1"
+            android:text="@{'#' + Integer.toString(book.rank)}"
+            android:textAllCaps="false"
+            android:textColor="@color/color_grey"
+            android:textSize="@dimen/text_big"
+            app:layout_constraintBottom_toBottomOf="@+id/card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <com.yuyakaido.android.cardstackview.CardStackView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bookshelf_height"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category" />
+
+        <LinearLayout
+            android:id="@+id/layout_book_description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card">
+
+            <TextView
+                android:id="@+id/tv_book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/padding"
+                android:paddingTop="@dimen/padding"
+                android:text="@{book.title}"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_big" />
+
+            <TextView
+                android:id="@+id/tv_book_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_family"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/padding"
+                android:text="@{@string/by + book.author}"
+                android:textAllCaps="false"
+                android:textColor="@color/color_a6aab3"
+                android:textSize="@dimen/text_small"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginTop="@dimen/padding"
+                android:alpha="0.5"
+                android:background="@color/color_a6aab3" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/padding_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="start|top"
+                        android:paddingHorizontal="@dimen/padding"
+                        android:paddingVertical="@dimen/padding"
+                        android:text="@string/synopsis"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text" />
+
+                    <TextView
+                        android:id="@+id/tv_book_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_family"
+                        android:gravity="start|top"
+                        android:paddingHorizontal="@dimen/padding"
+                        android:paddingBottom="@dimen/padding"
+                        android:text="@{book.description}"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+
+
+            </ScrollView>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_saved_books"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginTop="@dimen/margin"
-            android:layout_marginEnd="@dimen/margin"
+            android:layout_margin="@dimen/margin"
+            android:background="@drawable/bg_clickable_rounded"
+            android:clickable="true"
+            android:focusable="true"
             android:padding="@dimen/padding"
             android:src="@drawable/ic_book"
-            android:background="@drawable/bg_clickable_rounded"
-            app:tint="@color/color_black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:clickable="true"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="@+id/layout_book_description"
+            app:tint="@color/color_black" />
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:fontFamily="@font/poppins_family"
-            android:gravity="end|top"
-            android:textColor="@color/color_black"
-            android:textSize="@dimen/text_small"
-            app:layout_constraintEnd_toStartOf="@+id/iv_saved_books"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.yuyakaido.android.cardstackview.CardStackView
-            android:id="@+id/card"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/shelf_height"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_saved_books" />
-
-        <ScrollView
-            android:id="@+id/scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_book_description"
-            app:layout_constraintTop_toBottomOf="@+id/card"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="@dimen/padding"
+            android:paddingVertical="@dimen/padding_small"
+            android:text="@string/buy_at_amazon"
+            android:textAllCaps="false"
+            android:layout_marginBottom="@dimen/margin"
+            android:background="@drawable/bg_clickable_rounded"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/padding_big">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_book_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:fontFamily="@font/poppins_family"
-                    android:gravity="start|bottom"
-                    android:paddingStart="@dimen/padding"
-                    android:paddingEnd="@dimen/padding"
-                    android:text="@{book.title}"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/text"
-                    android:textStyle="bold"
-                    android:textAllCaps="false"
-                    android:maxLines="1" />
-
-                <TextView
-                    android:id="@+id/tv_book_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:fontFamily="@font/poppins_family"
-                    android:gravity="start|center_vertical"
-                    android:paddingStart="@dimen/padding"
-                    android:paddingEnd="@dimen/padding"
-                    android:paddingBottom="@dimen/padding"
-                    android:text="@{book.author}"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/text_small"
-                    android:textStyle="normal"
-                    android:textAllCaps="false"
-                    android:maxLines="1" />
-
-            </LinearLayout>
-
-
-        </ScrollView>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,7 +3,7 @@
 
         <item name="windowNoTitle">true</item>
 
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/color_388e3c</item>
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
 

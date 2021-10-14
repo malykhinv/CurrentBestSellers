@@ -8,11 +8,16 @@
         <entry key="app/src/main/res/drawable/bg_card.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/bg_clickable_rounded.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.34629629629629627" />
+        <entry key="app/src/main/res/drawable/bg_label.xml" value="0.3435897435897436" />
         <entry key="app/src/main/res/drawable/bg_primary_rounded.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/bg_primary_semirounded.xml" value="0.34629629629629627" />
         <entry key="app/src/main/res/drawable/bg_secondary_rounded.xml" value="0.34074074074074073" />
         <entry key="app/src/main/res/drawable/fg_card.xml" value="0.4107692307692308" />
         <entry key="app/src/main/res/drawable/gradient_radial_white_to_transparent.xml" value="0.4107692307692308" />
+        <entry key="app/src/main/res/drawable/ic_arrow_back.xml" value="0.3435897435897436" />
+        <entry key="app/src/main/res/drawable/ic_badge.xml" value="0.3435897435897436" />
+        <entry key="app/src/main/res/drawable/ic_book.xml" value="0.33055555555555555" />
+        <entry key="app/src/main/res/drawable/ic_diamond.xml" value="0.3435897435897436" />
         <entry key="app/src/main/res/font/.xml" value="0.34074074074074073" />
         <entry key="app/src/main/res/font/montserrat.xml" value="0.34074074074074073" />
         <entry key="app/src/main/res/font/poppins_family.xml" value="0.34074074074074073" />

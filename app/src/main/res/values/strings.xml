@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">CurrentBestSellers</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_loading_books">Error while loading books</string>
+    <string name="by">"by "</string>
+    <string name="bestseller">"Hardcover fiction bestseller "</string>
+    <string name="of_overall_number">" of 15"</string>
+    <string name="buy_at_amazon">Buy at Amazon</string>
+    <string name="weeks_on_list">week(s)\non the\nlist</string>
+    <string name="synopsis">Synopsis</string>
 </resources>

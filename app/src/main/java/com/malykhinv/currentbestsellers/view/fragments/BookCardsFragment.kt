@@ -1,15 +1,13 @@
 package com.malykhinv.currentbestsellers.view.fragments
 
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -43,9 +41,15 @@ class BookCardsFragment : Fragment(), CardStackListener {
             return BookCardsFragment()
         }
 
-        private const val ANIMATION_DURATION: Long = 300
-        private const val BLUR_LEVEL: Int = 50
+        private const val ANIMATION_DURATION: Long = 300L
+        private const val BLUR_LEVEL: Int = 10
         private const val SAMPLING_LEVEL: Int = 8
+        private const val BACKGROUND_SATURATION: Float = 0.0f
+        private const val CARD_TRANSLATION_INTERVAL: Float = 0.0f
+        private const val COUNT_OF_VISIBLE_CARDS: Int = 2
+        private const val NEXT_CARD_INITIAL_SCALE: Float = 0.0f
+        private const val CARD_SWIPE_THRESHOLD: Float = 0.3f
+        private const val CARD_SWIPE_ANGLE: Float = -45.0f
     }
 
 
@@ -109,19 +113,24 @@ class BookCardsFragment : Fragment(), CardStackListener {
     // Internal
 
     private fun initializeCards() {
-        manager.setStackFrom(StackFrom.Top)
-        manager.setVisibleCount(3)
-        manager.setTranslationInterval(8.0f)
-        manager.setScaleInterval(0.95f)
-        manager.setSwipeThreshold(0.3f)
-        manager.setMaxDegree(0.0f)
-        manager.setDirections(Direction.HORIZONTAL)
-        manager.setCanScrollHorizontal(true)
-        manager.setCanScrollVertical(false)
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
-        manager.setOverlayInterpolator(LinearInterpolator())
-        binding.card.layoutManager = manager
-        binding.card.adapter = adapter
+        manager.apply {
+            setStackFrom(StackFrom.None)
+            setTranslationInterval(CARD_TRANSLATION_INTERVAL)
+            setVisibleCount(COUNT_OF_VISIBLE_CARDS)
+            setScaleInterval(NEXT_CARD_INITIAL_SCALE)
+            setSwipeThreshold(CARD_SWIPE_THRESHOLD)
+            setMaxDegree(CARD_SWIPE_ANGLE)
+            setDirections(Direction.HORIZONTAL)
+            setCanScrollHorizontal(true)
+            setCanScrollVertical(false)
+            setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
+            setOverlayInterpolator(LinearInterpolator())
+        }
+
+        binding.apply {
+            card.layoutManager = manager
+            card.adapter = adapter
+        }
     }
 
     private fun setupButton() {
@@ -143,7 +152,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
 //        rewind.setOnClickListener {
 //            val setting = RewindAnimationSetting.Builder()
 //                .setDirection(Direction.Bottom)
-//                .setDuration(Duration.Normal.duration)
+//                .setDuration(Duration.Nor127mal.duration)
 //                .setInterpolator(DecelerateInterpolator())
 //                .build()
 //            manager.setRewindAnimationSetting(setting)
@@ -172,6 +181,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
             viewLifecycleOwner,
             {
                 adapter.setListOfBooks(it)
+                binding.publication = it.results
             }
         )
         viewModel.getErrorMessage().observe(
@@ -203,15 +213,25 @@ class BookCardsFragment : Fragment(), CardStackListener {
 
     private fun setBackgroundImage(drawable: Drawable?) {
 
-        binding.layoutBackground.background = drawable
+        binding.layoutBackground.background = desaturateDrawable(drawable)
 
         Blurry.delete(binding.layoutBackground)
 
         Blurry.with(context)
-            .radius(Companion.BLUR_LEVEL)
-            .sampling(Companion.SAMPLING_LEVEL)
+            .radius(BLUR_LEVEL)
+            .sampling(SAMPLING_LEVEL)
+            .color(Color.argb(191, 0, 0, 0))
             .onto(binding.layoutBackground)
-        YoYo.with(Techniques.FadeIn).duration(Companion.ANIMATION_DURATION).playOn(binding.layoutBackground)
+        YoYo.with(Techniques.FadeIn).duration(ANIMATION_DURATION).playOn(binding.layoutBackground)
+    }
+
+    private fun desaturateDrawable(drawable: Drawable?): Drawable? {
+        val desaturatedDrawable = drawable?.constantState?.newDrawable()?.mutate()
+        val matrix = ColorMatrix()
+        matrix.setSaturation(BACKGROUND_SATURATION)
+        desaturatedDrawable?.colorFilter = ColorMatrixColorFilter(matrix)
+
+        return desaturatedDrawable
     }
 
 }
