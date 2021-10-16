@@ -5,6 +5,8 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
     private val adapter = CardStackAdapter()
     private val manager by lazy { CardStackLayoutManager(context, this) }
     private var previousBookRankDynamics = 0
+    private var numberOfBooks = 0
     lateinit var binding: FragmentBookCardsBinding
     lateinit var viewModel: MainViewModel
 
@@ -43,7 +46,8 @@ class BookCardsFragment : Fragment(), CardStackListener {
             return BookCardsFragment()
         }
 
-        private const val ANIMATION_DURATION: Long = 300L
+        private const val ANIMATION_DURATION_SHORT: Long = 300L
+        private const val ANIMATION_DURATION_LONG: Long = 1500L
         private const val BLUR_LEVEL: Int = 10
         private const val SAMPLING_LEVEL: Int = 8
         private const val BACKGROUND_SATURATION: Float = 0.0f
@@ -55,7 +59,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
     }
 
 
-    // Lifecycle
+    // LIFECYCLE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +88,12 @@ class BookCardsFragment : Fragment(), CardStackListener {
         observeCovers()
     }
 
+    private fun assignViewModel() {
+        viewModel = ViewModelProvider(this, MainViewModelFactory(MainRepository(retrofitService), requireActivity().application)).get(MainViewModel::class.java)
+    }
 
-    // CardStackView
+
+    // CARDS BEHAVIOR
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {
     }
@@ -104,15 +112,14 @@ class BookCardsFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
-        setBackgroundImage(viewModel.getCovers().value?.get(position+1))
+
+        if (position < numberOfBooks - 1) {
+            setBackgroundImage(viewModel.getCovers().value?.get(position+1))
+        }
+        else {
+            enableNoMoreCardsMode()
+        }
     }
-
-    private fun assignViewModel() {
-        viewModel = ViewModelProvider(this, MainViewModelFactory(MainRepository(retrofitService), requireActivity().application)).get(MainViewModel::class.java)
-    }
-
-
-    // Internal
 
     private fun initializeCards() {
         manager.apply {
@@ -134,6 +141,72 @@ class BookCardsFragment : Fragment(), CardStackListener {
             card.adapter = adapter
         }
     }
+
+    private fun enableNoMoreCardsMode() {
+
+        animateBookInformationViewsOut()
+        animateExitInformationViewsIn()
+
+        Handler(Looper.getMainLooper()).postDelayed( {
+            leaveScreen()
+        }, ANIMATION_DURATION_SHORT)
+
+    }
+
+    private fun animateBookInformationViewsOut() {
+
+        YoYo
+            .with(Techniques.FadeOut)
+            .duration(ANIMATION_DURATION_SHORT)
+            .apply {
+                playOn(binding.layoutBookAchievement)
+                playOn(binding.divider)
+            }
+
+        YoYo
+            .with(Techniques.SlideOutLeft)
+            .duration(ANIMATION_DURATION_SHORT)
+            .apply {
+                playOn(binding.tvBookTitle)
+                playOn(binding.tvBookAuthor)
+                playOn(binding.tvSynopsisTitle)
+                playOn(binding.tvBookDescription)
+            }
+
+        YoYo
+            .with(Techniques.SlideOutRight)
+            .duration(ANIMATION_DURATION_SHORT)
+            .apply {
+                playOn(binding.tvBookRank)
+                playOn(binding.ivRankDynamics)
+            }
+
+        YoYo
+            .with(Techniques.SlideOutDown)
+            .duration(ANIMATION_DURATION_SHORT)
+            .apply {
+                playOn(binding.buttonBuyAtAmazon)
+                playOn(binding.layoutBookDescription)
+                playOn(binding.viewBookShelf)
+            }
+    }
+
+    private fun animateExitInformationViewsIn() {
+
+        binding.layoutNothingToShow.root.visibility = View.VISIBLE
+
+        YoYo
+            .with(Techniques.SlideInDown)
+            .duration(ANIMATION_DURATION_LONG)
+            .playOn(binding.layoutNothingToShow.root)
+
+    }
+
+    private fun leaveScreen() {
+    }
+
+
+    // BUTTON CONTROLS
 
     private fun setupButton() {
 
@@ -178,12 +251,16 @@ class BookCardsFragment : Fragment(), CardStackListener {
         Navigation.findNavController(v).navigate(action)
     }
 
+
+    // OBSERVING
+
     private fun observeResponse() {
         viewModel.getApiResponse().observe(
             viewLifecycleOwner,
             {
                 adapter.setListOfBooks(it)
                 binding.publication = it.results
+                numberOfBooks = it.numResults
             }
         )
         viewModel.getErrorMessage().observe(
@@ -240,10 +317,9 @@ class BookCardsFragment : Fragment(), CardStackListener {
     private fun playRankIconAnimation() {
         YoYo
             .with(Techniques.FlipInX)
-            .duration(ANIMATION_DURATION)
+            .duration(ANIMATION_DURATION_SHORT)
             .playOn(binding.ivRankDynamics)
     }
-
 
     private fun observeCovers() {
         viewModel.getCovers().observe(
@@ -266,7 +342,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
             .sampling(SAMPLING_LEVEL)
             .color(Color.argb(191, 0, 0, 0))
             .onto(binding.layoutBackground)
-        YoYo.with(Techniques.FadeIn).duration(ANIMATION_DURATION).playOn(binding.layoutBackground)
+        YoYo.with(Techniques.FadeIn).duration(ANIMATION_DURATION_SHORT).playOn(binding.layoutBackground)
     }
 
     private fun desaturateDrawable(drawable: Drawable?): Drawable? {

@@ -13,19 +13,28 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_core"
+        android:id="@+id/layoutCore"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
         tools:context=".view.fragments.BookCardsFragment">
 
         <FrameLayout
-            android:id="@+id/layout_background"
+            android:id="@+id/layoutBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <include
+            android:id="@+id/layoutNothingToShow"
+            layout="@layout/layout_nothing_to_show"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <TextView
-            android:id="@+id/tv_category"
+            android:id="@+id/tvCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
@@ -43,6 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/layoutBookAchievement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin"
@@ -51,9 +61,9 @@
             android:paddingHorizontal="@dimen/padding_small"
             android:paddingVertical="@dimen/padding_small"
             app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintBottom_toTopOf="@+id/viewBookShelf"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_category">
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory">
 
             <FrameLayout
                 android:layout_width="@dimen/icon_size"
@@ -90,14 +100,14 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/viewBookShelf"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bookshelf_bottom_height"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/layout_book_description" />
+            app:layout_constraintBottom_toTopOf="@id/layoutBookDescription" />
 
         <TextView
-            android:id="@+id/tv_book_rank"
+            android:id="@+id/tvBookRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_xsmall"
@@ -107,21 +117,21 @@
             android:textAllCaps="false"
             android:textColor="@color/color_grey"
             android:textSize="@dimen/text_big"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_rank_dynamics"
-            app:layout_constraintEnd_toStartOf="@id/iv_rank_dynamics"
-            app:layout_constraintTop_toTopOf="@+id/iv_rank_dynamics" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivRankDynamics"
+            app:layout_constraintEnd_toStartOf="@id/ivRankDynamics"
+            app:layout_constraintTop_toTopOf="@+id/ivRankDynamics" />
 
         <ImageView
-            android:id="@+id/iv_rank_dynamics"
+            android:id="@+id/ivRankDynamics"
             android:layout_width="@dimen/icon_size_small"
             android:layout_height="@dimen/icon_size_small"
             android:layout_gravity="center_vertical"
             android:padding="4dp"
             android:layout_marginEnd="@dimen/margin"
             android:src="@drawable/ic_empty"
-            app:layout_constraintBottom_toBottomOf="@+id/card"
+            app:layout_constraintBottom_toBottomOf="@+id/viewBookShelf"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toTopOf="@+id/viewBookShelf" />
 
         <com.yuyakaido.android.cardstackview.CardStackView
             android:id="@+id/card"
@@ -131,10 +141,10 @@
             tools:listitem="@layout/item_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_category" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
 
         <LinearLayout
-            android:id="@+id/layout_book_description"
+            android:id="@+id/layoutBookDescription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
@@ -145,7 +155,7 @@
             app:layout_constraintTop_toBottomOf="@+id/card">
 
             <TextView
-                android:id="@+id/tv_book_title"
+                android:id="@+id/tvBookTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
@@ -165,7 +175,7 @@
                 android:marqueeRepeatLimit ="marquee_forever"/>
 
             <TextView
-                android:id="@+id/tv_book_author"
+                android:id="@+id/tvBookAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_family"
@@ -200,6 +210,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvSynopsisTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_bold"
@@ -212,7 +223,7 @@
                         android:textSize="@dimen/text" />
 
                     <TextView
-                        android:id="@+id/tv_book_description"
+                        android:id="@+id/tvBookDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_family"
@@ -227,14 +238,12 @@
 
                 </LinearLayout>
 
-
-
             </ScrollView>
 
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_saved_books"
+            android:id="@+id/ivSavedBooks"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_margin="@dimen/margin"
@@ -244,11 +253,12 @@
             android:padding="@dimen/padding"
             android:src="@drawable/ic_book"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/layout_book_description"
+            app:layout_constraintTop_toTopOf="@+id/layoutBookDescription"
             app:tint="@color/color_black"
             android:visibility="gone"/>
 
         <Button
+            android:id="@+id/buttonBuyAtAmazon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/padding"

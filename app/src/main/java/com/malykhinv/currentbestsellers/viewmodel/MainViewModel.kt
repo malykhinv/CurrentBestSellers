@@ -60,7 +60,7 @@ class MainViewModel(private val repository: MainRepository, private val app: App
 
             Glide
                 .with(app)
-                .load(apiResponse?.results?.books?.get(i)?.bookImage)
+                .load(apiResponse.results.books[i].bookImage)
                 .listener(
                 @SuppressLint("CheckResult")
                 object : RequestListener<Drawable> {

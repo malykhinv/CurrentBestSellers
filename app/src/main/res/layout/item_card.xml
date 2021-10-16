@@ -7,7 +7,7 @@
     android:paddingHorizontal="@dimen/padding">
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/iv_book_cover_shimmer"
+            android:id="@+id/ivBookCoverShimmer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:shimmer_auto_start="true"
@@ -25,7 +25,7 @@
                     >
 
                         <ImageView
-                            android:id="@+id/iv_book_cover"
+                            android:id="@+id/ivBookCover"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitXY"
