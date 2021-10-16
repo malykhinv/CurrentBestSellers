@@ -22,6 +22,7 @@
     <dimen name="margin">20dp</dimen>
     <dimen name="margin_big">48dp</dimen>
 
+    <dimen name="padding_xxsmall">2dp</dimen>
     <dimen name="padding_xsmall">3dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding">24dp</dimen>

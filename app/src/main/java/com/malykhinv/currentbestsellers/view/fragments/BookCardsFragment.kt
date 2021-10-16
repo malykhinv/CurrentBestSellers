@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +33,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
     private val retrofitService = RetrofitService.create()
     private val adapter = CardStackAdapter()
     private val manager by lazy { CardStackLayoutManager(context, this) }
+    private var previousBookRankDynamics = 0
     lateinit var binding: FragmentBookCardsBinding
     lateinit var viewModel: MainViewModel
 
@@ -45,11 +47,11 @@ class BookCardsFragment : Fragment(), CardStackListener {
         private const val BLUR_LEVEL: Int = 10
         private const val SAMPLING_LEVEL: Int = 8
         private const val BACKGROUND_SATURATION: Float = 0.0f
-        private const val CARD_TRANSLATION_INTERVAL: Float = 0.0f
+        private const val CARD_TRANSLATION_INTERVAL: Float = 180.0f
         private const val COUNT_OF_VISIBLE_CARDS: Int = 2
-        private const val NEXT_CARD_INITIAL_SCALE: Float = 0.0f
+        private const val NEXT_CARD_INITIAL_SCALE: Float = 1.0f
         private const val CARD_SWIPE_THRESHOLD: Float = 0.3f
-        private const val CARD_SWIPE_ANGLE: Float = -45.0f
+        private const val CARD_SWIPE_ANGLE: Float = -15.0f
     }
 
 
@@ -114,7 +116,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
 
     private fun initializeCards() {
         manager.apply {
-            setStackFrom(StackFrom.None)
+            setStackFrom(StackFrom.Left)
             setTranslationInterval(CARD_TRANSLATION_INTERVAL)
             setVisibleCount(COUNT_OF_VISIBLE_CARDS)
             setScaleInterval(NEXT_CARD_INITIAL_SCALE)
@@ -197,9 +199,51 @@ class BookCardsFragment : Fragment(), CardStackListener {
             viewLifecycleOwner,
             {
                 binding.book = it
+                it?.let {updateRankIcon(it.rank, it.rankLastWeek)}
+                binding.tvBookTitle.isSelected = true
             }
         )
     }
+
+    private fun updateRankIcon(rank: Int?, rankLastWeek: Int?) {
+
+        rank ?: return
+        rankLastWeek ?: return
+
+        // -1 - negative, 0 - neutral, 1 - positive
+        var rankDynamics = 0
+
+        when {
+            (rank == rankLastWeek && rankLastWeek != 0) -> rankDynamics = 0
+            (rank < rankLastWeek || rankLastWeek == 0) -> rankDynamics = 1
+            (rank > rankLastWeek && rankLastWeek != 0) -> rankDynamics = -1
+        }
+
+        when {
+            rankDynamics != previousBookRankDynamics && rankDynamics == 1 -> {
+                binding.ivRankDynamics.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_caret_up, resources.newTheme()))
+                playRankIconAnimation()
+            }
+
+            rankDynamics != previousBookRankDynamics && rankDynamics == -1 -> {
+                binding.ivRankDynamics.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_caret_down, resources.newTheme()))
+                playRankIconAnimation()
+            }
+
+            rankDynamics != previousBookRankDynamics && rankDynamics == 0 ->
+                binding.ivRankDynamics.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_empty, resources.newTheme()))
+        }
+
+        previousBookRankDynamics = rankDynamics
+    }
+
+    private fun playRankIconAnimation() {
+        YoYo
+            .with(Techniques.FlipInX)
+            .duration(ANIMATION_DURATION)
+            .playOn(binding.ivRankDynamics)
+    }
+
 
     private fun observeCovers() {
         viewModel.getCovers().observe(

@@ -100,14 +100,25 @@
             android:id="@+id/tv_book_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin"
-            android:alpha="0.25"
+            android:layout_marginTop="@dimen/padding_xsmall"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="1"
             android:text="@{'#' + Integer.toString(book.rank)}"
             android:textAllCaps="false"
             android:textColor="@color/color_grey"
             android:textSize="@dimen/text_big"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_rank_dynamics"
+            app:layout_constraintEnd_toStartOf="@id/iv_rank_dynamics"
+            app:layout_constraintTop_toTopOf="@+id/iv_rank_dynamics" />
+
+        <ImageView
+            android:id="@+id/iv_rank_dynamics"
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
+            android:layout_gravity="center_vertical"
+            android:padding="4dp"
+            android:layout_marginEnd="@dimen/margin"
+            android:src="@drawable/ic_empty"
             app:layout_constraintBottom_toBottomOf="@+id/card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view" />
@@ -138,14 +149,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:gravity="start"
+                android:gravity="start|center_vertical"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/padding"
-                android:paddingTop="@dimen/padding"
                 android:text="@{book.title}"
+                android:textStyle="bold"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_big" />
+                android:textSize="@dimen/text_big"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit ="marquee_forever"/>
 
             <TextView
                 android:id="@+id/tv_book_author"
@@ -202,7 +219,7 @@
                         android:gravity="start|top"
                         android:paddingHorizontal="@dimen/padding"
                         android:paddingBottom="@dimen/padding"
-                        android:text="@{book.description}"
+                        android:text="@{book.description + book.rank + book.rankLastWeek}"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_small"
@@ -228,7 +245,8 @@
             android:src="@drawable/ic_book"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/layout_book_description"
-            app:tint="@color/color_black" />
+            app:tint="@color/color_black"
+            android:visibility="gone"/>
 
         <Button
             android:layout_width="wrap_content"
