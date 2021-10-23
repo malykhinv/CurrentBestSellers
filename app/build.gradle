@@ -54,24 +54,28 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    // LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
+    // DI
+    implementation 'com.google.dagger:dagger-android:2.35.1'
+    implementation 'com.google.dagger:dagger-android-support:2.x' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.x'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.38.1'
+
+    // API access
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // UI
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
-
     implementation 'jp.wasabeef:blurry:4.0.0'
     implementation 'pl.hypeapp:noiseview:1.0'
-
     implementation 'com.makeramen:roundedimageview:2.3.0'
-
     implementation "com.yuyakaido.android:card-stack-view:2.3.4"
-
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
-
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
 
