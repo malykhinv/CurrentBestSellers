@@ -9,4 +9,6 @@
     <string name="weeks_on_list">week(s)\non the\nlist</string>
     <string name="synopsis">Synopsis</string>
     <string name="there_are_no_more_books">There are no more books</string>
+    <string name="categories">Categories</string>
+    <string name="fiction">Fiction</string>
 </resources>

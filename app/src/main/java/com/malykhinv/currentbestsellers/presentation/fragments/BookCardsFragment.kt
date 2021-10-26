@@ -1,9 +1,11 @@
-package com.malykhinv.currentbestsellers.view.fragments
+package com.malykhinv.currentbestsellers.presentation.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,29 +18,29 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.malykhinv.currentbestsellers.R
 import com.malykhinv.currentbestsellers.databinding.FragmentBookCardsBinding
-import com.malykhinv.currentbestsellers.model.MainRepository
-import com.malykhinv.currentbestsellers.model.RetrofitService
-import com.malykhinv.currentbestsellers.view.adapters.CardStackAdapter
-import com.malykhinv.currentbestsellers.viewmodel.MainViewModel
-import com.malykhinv.currentbestsellers.viewmodel.MainViewModelFactory
+import com.malykhinv.currentbestsellers.data.repository.BooksRepositoryImpl
+import com.malykhinv.currentbestsellers.data.source.RetrofitService
+import com.malykhinv.currentbestsellers.presentation.adapters.CardStackAdapter
+import com.malykhinv.currentbestsellers.presentation.viewmodel.BooksViewModel
+import com.malykhinv.currentbestsellers.presentation.viewmodel.BooksViewModelFactory
 import com.yuyakaido.android.cardstackview.*
 import jp.wasabeef.blurry.Blurry
 
 
 class BookCardsFragment : Fragment(), CardStackListener {
 
+    private var categoryPath: String? = null
     private val retrofitService = RetrofitService.create()
     private val adapter = CardStackAdapter()
     private val manager by lazy { CardStackLayoutManager(context, this) }
     private var previousBookRankDynamics = 0
     private var numberOfBooks = 0
     lateinit var binding: FragmentBookCardsBinding
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: BooksViewModel
 
     companion object {
 
@@ -64,7 +66,12 @@ class BookCardsFragment : Fragment(), CardStackListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        arguments?.let {
+            categoryPath = it.getString("CATEGORY_PATH")
+        }
+
         assignViewModel()
+        observeViewModel()
     }
 
     override fun onCreateView(
@@ -80,16 +87,76 @@ class BookCardsFragment : Fragment(), CardStackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivSavedBooks.setOnClickListener {goToShelf(it)}
-
+        assignControls()
         initializeCards()
+    }
+
+    private fun assignViewModel() {
+        viewModel = ViewModelProvider(this, BooksViewModelFactory(BooksRepositoryImpl(retrofitService, categoryPath), requireActivity().application)).get(BooksViewModel::class.java)
+    }
+
+    private fun observeViewModel() {
         observeResponse()
         observeCurrentBook()
         observeCovers()
     }
 
-    private fun assignViewModel() {
-        viewModel = ViewModelProvider(this, MainViewModelFactory(MainRepository(retrofitService), requireActivity().application)).get(MainViewModel::class.java)
+
+
+    // BUTTON CONTROLS
+
+    private fun assignControls() {
+
+        binding.ivGetBack.setOnClickListener { requireActivity().onBackPressed() }
+
+        binding.buttonBuyAtAmazon.setOnClickListener {
+            viewModel.getCurrentBook().value?.amazonProductUrl?.let { amazonUrl -> openExternalBrowser(amazonUrl) }
+        }
+
+    }
+
+    private fun setupButton() {
+
+        // todo
+
+//        val skip = findViewById<View>(R.id.skip_button)
+//        skip.setOnClickListener {
+//            val setting = SwipeAnimationSetting.Builder()
+//                .setDirection(Direction.Left)
+//                .setDuration(Duration.Normal.duration)
+//                .setInterpolator(AccelerateInterpolator())
+//                .build()
+//            manager.setSwipeAnimationSetting(setting)
+//            binding.card.swipe()
+//        }
+//
+//        val rewind = findViewById<View>(R.id.rewind_button)
+//        rewind.setOnClickListener {
+//            val setting = RewindAnimationSetting.Builder()
+//                .setDirection(Direction.Bottom)
+//                .setDuration(Duration.Nor127mal.duration)
+//                .setInterpolator(DecelerateInterpolator())
+//                .build()
+//            manager.setRewindAnimationSetting(setting)
+//            binding.card.rewind()
+//        }
+//
+//        val like = findViewById<View>(R.id.like_button)
+//        like.setOnClickListener {
+//            val setting = SwipeAnimationSetting.Builder()
+//                .setDirection(Direction.Right)
+//                .setDuration(Duration.Normal.duration)
+//                .setInterpolator(AccelerateInterpolator())
+//                .build()
+//            manager.setSwipeAnimationSetting(setting)
+//            binding.card.swipe()
+//
+    }
+
+    fun openExternalBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 
 
@@ -206,52 +273,6 @@ class BookCardsFragment : Fragment(), CardStackListener {
     }
 
 
-    // BUTTON CONTROLS
-
-    private fun setupButton() {
-
-        // todo
-
-//        val skip = findViewById<View>(R.id.skip_button)
-//        skip.setOnClickListener {
-//            val setting = SwipeAnimationSetting.Builder()
-//                .setDirection(Direction.Left)
-//                .setDuration(Duration.Normal.duration)
-//                .setInterpolator(AccelerateInterpolator())
-//                .build()
-//            manager.setSwipeAnimationSetting(setting)
-//            binding.card.swipe()
-//        }
-//
-//        val rewind = findViewById<View>(R.id.rewind_button)
-//        rewind.setOnClickListener {
-//            val setting = RewindAnimationSetting.Builder()
-//                .setDirection(Direction.Bottom)
-//                .setDuration(Duration.Nor127mal.duration)
-//                .setInterpolator(DecelerateInterpolator())
-//                .build()
-//            manager.setRewindAnimationSetting(setting)
-//            binding.card.rewind()
-//        }
-//
-//        val like = findViewById<View>(R.id.like_button)
-//        like.setOnClickListener {
-//            val setting = SwipeAnimationSetting.Builder()
-//                .setDirection(Direction.Right)
-//                .setDuration(Duration.Normal.duration)
-//                .setInterpolator(AccelerateInterpolator())
-//                .build()
-//            manager.setSwipeAnimationSetting(setting)
-//            binding.card.swipe()
-//
-    }
-
-    private fun goToShelf(v: View) {
-        val action = BookCardsFragmentDirections.actionGoToShelf()
-        Navigation.findNavController(v).navigate(action)
-    }
-
-
     // OBSERVING
 
     private fun observeResponse() {
@@ -270,6 +291,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
             }
         )
     }
+
 
     private fun observeCurrentBook() {
         viewModel.getCurrentBook().observe(
@@ -321,6 +343,7 @@ class BookCardsFragment : Fragment(), CardStackListener {
             .playOn(binding.ivRankDynamics)
     }
 
+
     private fun observeCovers() {
         viewModel.getCovers().observe(
             viewLifecycleOwner,
@@ -353,5 +376,4 @@ class BookCardsFragment : Fragment(), CardStackListener {
 
         return desaturatedDrawable
     }
-
 }

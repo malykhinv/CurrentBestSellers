@@ -30,8 +30,10 @@
         <entry key="app/src/main/res/layout/fragment_book_cards.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_book_flow.xml" value="0.3641025641025641" />
         <entry key="app/src/main/res/layout/fragment_book_shelf.xml" value="0.3641025641025641" />
+        <entry key="app/src/main/res/layout/fragment_categories.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_core.xml" value="0.3641025641025641" />
         <entry key="app/src/main/res/layout/item_card.xml" value="0.31203703703703706" />
+        <entry key="app/src/main/res/layout/layout_category.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/layout_nothing_to_show.xml" value="0.3328125" />
       </map>
     </option>

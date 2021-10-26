@@ -1,19 +1,19 @@
-package com.malykhinv.currentbestsellers.view.adapters
+package com.malykhinv.currentbestsellers.presentation.adapters
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.malykhinv.currentbestsellers.databinding.ItemCardBinding
-import com.malykhinv.currentbestsellers.model.data.ApiResponse
+import com.malykhinv.currentbestsellers.domain.model.books.BooksApiResponse
 
 class CardStackAdapter : RecyclerView.Adapter<CardStackAdapter.ViewHolder>() {
 
-    private var response: ApiResponse? = null
+    private var responseBooks: BooksApiResponse? = null
     private var covers: Map<Int, Drawable?> = emptyMap()
 
-    fun setListOfBooks(response: ApiResponse) {
-        this.response = response
+    fun setListOfBooks(responseBooks: BooksApiResponse) {
+        this.responseBooks = responseBooks
         notifyDataSetChanged()
     }
 
@@ -39,7 +39,7 @@ class CardStackAdapter : RecyclerView.Adapter<CardStackAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return response?.numResults ?: 15
+        return responseBooks?.numResults ?: 15
     }
 
     inner class ViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root)

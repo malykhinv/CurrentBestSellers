@@ -1,17 +1,16 @@
-package com.malykhinv.currentbestsellers.view
+package com.malykhinv.currentbestsellers.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import com.malykhinv.currentbestsellers.R
-import com.malykhinv.currentbestsellers.view.fragments.BookCardsFragment
-import com.malykhinv.currentbestsellers.view.fragments.BookShelfFragment
+import com.malykhinv.currentbestsellers.presentation.fragments.BookCardsFragment
+import com.malykhinv.currentbestsellers.presentation.fragments.SavedBooksFragment
 
 class MainActivity : AppCompatActivity() {
 
     private val bookCardsFragment: BookCardsFragment = BookCardsFragment.newInstance()
-    private val bookShelfFragment: BookShelfFragment = BookShelfFragment.newInstance()
+    private val savedBooksFragment: SavedBooksFragment = SavedBooksFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

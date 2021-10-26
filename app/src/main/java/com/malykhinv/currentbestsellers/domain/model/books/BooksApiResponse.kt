@@ -1,8 +1,8 @@
-package com.malykhinv.currentbestsellers.model.data
+package com.malykhinv.currentbestsellers.domain.model.books
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiResponse (
+data class BooksApiResponse (
 
     val copyright: String,
 

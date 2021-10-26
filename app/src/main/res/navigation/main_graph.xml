@@ -2,27 +2,42 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_book_flow">
+    android:id="@+id/navGraph"
+    app:startDestination="@id/fragmentBookCards">
 
     <fragment
-        android:id="@+id/fragment_book_flow"
-        android:name="com.malykhinv.currentbestsellers.view.fragments.BookCardsFragment"
-        android:label="BookFlowFragment"
-        tools:layout="@layout/fragment_book_cards">
+        android:id="@+id/fragmentCategories"
+        android:name="com.malykhinv.currentbestsellers.presentation.fragments.CategoriesFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/fragment_categories">
         <action
-            android:id="@+id/action_go_to_shelf"
-            app:destination="@+id/fragment_book_shelf"/>
+            android:id="@+id/action_fragmentCategories_to_fragmentBookCards"
+            app:destination="@+id/fragmentBookCards"
+            />
+        <argument
+            android:name="categoryPath"
+            app:argType="String"
+            />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_book_shelf"
-        android:name="com.malykhinv.currentbestsellers.view.fragments.BookShelfFragment"
-        android:label="BookShelfFragment"
-        tools:layout="@layout/fragment_book_shelf">
+        android:id="@+id/fragmentBookCards"
+        android:name="com.malykhinv.currentbestsellers.presentation.fragments.BookCardsFragment"
+        android:label="BookFlowFragment"
+        tools:layout="@layout/fragment_book_cards">
         <action
-            android:id="@+id/action_go_to_flow"
-            app:destination="@+id/fragment_book_flow"/>
+            android:id="@+id/action_fragmentBookCards_to_fragmentSavedBooks"
+            app:destination="@+id/fragmentSavedBooks"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSavedBooks"
+        android:name="com.malykhinv.currentbestsellers.presentation.fragments.SavedBooksFragment"
+        android:label="BookShelfFragment"
+        tools:layout="@layout/fragment_saved_books">
+        <action
+            android:id="@+id/action_fragmentSavedBooks_to_fragmentBookCards"
+            app:destination="@+id/fragmentBookCards"/>
     </fragment>
 
 </navigation>
